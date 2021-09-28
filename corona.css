@@ -1,0 +1,87 @@
+* {
+    margin: auto;
+    padding: 0%;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+}
+
+body {
+    background-image: linear-gradient(to right top, #051437, #421857, #87005d, #c50048, #eb1212);
+}
+
+h1 {
+    text-align: center;
+    color: wheat;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.container .world {
+    width: 43vw;
+    height: 80vh;
+    background-color: salmon;
+    margin-right: 15px;
+    left: 0%;
+}
+
+span {
+    color: wheat;
+}
+
+h2 {
+    text-transform: uppercase;
+    color: snow;
+    text-align: center;
+}
+
+h4 {
+    padding: 3px;
+}
+
+.container .search {
+    float: right;
+    margin: 4 px;
+}
+
+#btn {
+    border-radius: 20%;
+    background-color: darkblue;
+    size: 10px;
+    color: wheat;
+}
+
+.container .search input {
+    border-radius: 20px;
+}
+
+.container .table #mytable {
+    width: 57vw;
+    height: 80vh;
+    background-color: chartreuse;
+    display: block;
+    overflow-y: scroll;
+    position: relative;
+    margin-top: rem;
+}
+
+#mytable tr td {
+    border: 2px solid black;
+    font-weight: bold;
+}
+
+th {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: tomato;
+}
