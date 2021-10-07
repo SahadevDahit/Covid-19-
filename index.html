@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Corona_Update</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="corona.css">
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-danger">
+        <div class="container-fluid">
+
+            </button>
+            <a class="navbar-brand">Navbar</a>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                <ul class="navbar-nav ms-auto mb-2 mr-4 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">About Us</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+    <h1>COVID-19 TOTAL CASES ALL AROUND WORLD</h1>
+
+    <div class="container">
+
+
+        <div class="world">
+            <h2>World Record</h2>
+            <h4>New Confirmed= <span id="0"></span></h4>
+            <h4>New Recovered=<span id="1"></span></h4>
+            <h4>New Death=<span id="2"></span></h4>
+            <h4>Total Confirmed=<span id="3"></span></h4>
+            <h4>Total Recovered=<span id="4"></span></h4>
+            <h4>Total Death=<span id="5"></span></h4>
+            <h4>Date=<span id="6"></span></h4>
+
+        </div>
+        <div class="table">
+            <div class="search">
+                <input type="text" name="" size="30px" id="mytext">
+                <button id="btn">Search</button>
+
+            </div>
+
+            <table border="5px" id="mytable" style="color: rgb(0, 0, 0);">
+                <thead>
+                    <tr>
+                        <th>Country</th>
+                        <th>New Confirmed</th>
+                        <th>New Recovered</th>
+                        <th>New Death</th>
+                        <th>Total Confirmed</th>
+                        <th>Total Recovered</th>
+                        <th>Total Death</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        "use strict";
+
+
+        try {
+            fetch('https://api.covid19api.com/summary')
+                .then(response => {
+                    // var obj = response.json;
+                    // console.log(obj);
+                    return response.json()
+                }).then(json => {
+                    console.log(json);
+                    document.getElementById("0").innerText = json.Global.NewConfirmed;
+                    document.getElementById("1").innerText = json.Global.NewRecovered;
+                    document.getElementById("2").innerText = json.Global.NewDeaths;
+                    document.getElementById("3").innerText = json.Global.TotalConfirmed;
+                    document.getElementById("4").innerText = json.Global.TotalRecovered;
+                    document.getElementById("5").innerText = json.Global.TotalDeaths;
+                    document.getElementById("6").innerText = json.Global.Date;
+
+                    for (var i = 0; i < 192; i++) {
+                        var tbl = document.getElementById("mytable");
+                        var myelement = document.createElement("tr");
+                        var tblbody = tbl.querySelector('tbody');
+                        var country = json.Countries[i].Country;
+                        var NewConfirmed = json.Countries[i].NewConfirmed;
+                        var NewRecovered = json.Countries[i].NewRecovered;
+                        var NewDeaths = json.Countries[i].NewDeaths;
+                        var TotalConfirmed = json.Countries[i].TotalConfirmed;
+
+                        var TotalRecovered = json.Countries[i].TotalRecovered;
+                        var TotalDeaths = json.Countries[i].TotalDeaths;
+                        var Date = json.Countries[i].Date;
+
+                        tblbody.innerHTML += `<tr>
+            <td>${country}</td>
+            <td>${NewConfirmed}</td>
+            <td>${NewRecovered}</td>
+            <td>${NewDeaths}</td>
+            <td>${TotalConfirmed}</td>
+            <td>${TotalRecovered}</td>
+            <td>${TotalDeaths}</td>
+            <td>${Date}</td>
+            
+            </tr>`;
+                    }
+                    // console.log(json.Global.TotalConfirmed)
+                    // console.log(json.Countries[121].Country)
+
+
+                })
+
+        } catch (error) {
+            console.log("Error occured");
+        }
+
+        function myFunction() {
+            // Declare variables
+
+            var input = document.getElementById('mytext');
+            var filter = input.value.toUpperCase();
+            // var tbl = document.getElementById("mytable");
+            var tbl = document.querySelector('tbody');
+            var tr = tbl.getElementsByTagName('tr');
+
+            // Loop through all list items, and hide those who don't match the search query
+            for (var i = 0; i < tr.length; i++) {
+                var a = tr[i].getElementsByTagName("td")[0];
+                if (a) {
+
+                    var txtValue = a.textContent || a.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+        document.getElementById("mytext").addEventListener("keyup", myFunction);
+        document.getElementById("btn").addEventListener("keyup", myFunction);
+
+
+        // debugger;
+    </script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>
